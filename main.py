@@ -346,7 +346,7 @@ if page == "✈️ Plan Your Trip":
     if 'plan_generated' in st.session_state and st.session_state.plan_generated:
         trip_data = st.session_state.trip_data
         st.markdown('<div class="success-msg">✅ Your Travel Plan is Ready!</div>', unsafe_allow_html=True)
-        st.markdown(f'<h2 style="text-align: center; color: #2d3748;">{trip_data["start"]} to {trip_data["end"]}</h2>', unsafe_allow_html=True)
+        st.markdown(f'<h2 style="text-align: center; color: white;">{trip_data["start"]} to {trip_data["end"]}</h2>', unsafe_allow_html=True)
         
         # --- NOTE: The maps are placed in the same column layout, making them the same width by design ---
         map_tab1, map_tab2 = st.tabs(["📍 Interactive Map", "🗺️ Static Map"])
