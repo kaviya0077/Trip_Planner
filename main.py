@@ -497,7 +497,7 @@ elif page == "📊 Trip Details":
 
         if cost_estimates:
             st.markdown("---")
-            st.markdown("<h4 style='text-align: center; color: #2d3748;'>💵 Detailed Cost Breakdown</h4>", unsafe_allow_html=True)
+            st.markdown("<h4 style='text-align: center; color: white;'>💵 Detailed Cost Breakdown</h4>", unsafe_allow_html=True)
             num_items = len(cost_estimates)
             cols = st.columns(num_items if num_items > 0 else 1)
             if num_items > 0:
