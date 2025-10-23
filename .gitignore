@@ -19,7 +19,6 @@
 # not be stored in the repository. The README should instruct others
 # on how to generate them by running the scripts.
 /data/
-/models/
 
 
 # --- Local Database Files ---
