@@ -80,7 +80,7 @@ FEATURES_LIST = [
 ]
 
 
-# --- MODIFIED: Custom CSS for Responsiveness and Theme Adaptability ---
+# Custom CSS for Responsiveness and Theme Adaptability
 st.markdown("""
 <style>
     /* Main styling - REMOVED fixed background to allow theme switching */
@@ -347,16 +347,14 @@ if page == "✈️ Plan Your Trip":
         st.markdown('<div class="success-msg">✅ Your Travel Plan is Ready!</div>', unsafe_allow_html=True)
         st.markdown(f'<h2 style="text-align: center; color: #2d3748;">{trip_data["start"]} to {trip_data["end"]}</h2>', unsafe_allow_html=True)
         
+        # --- NOTE: The maps are placed in the same column layout, making them the same width by design ---
         map_tab1, map_tab2 = st.tabs(["📍 Interactive Map", "🗺️ Static Map"])
-        
-        # --- REMOVED: Fixed map_width variable for responsiveness ---
         
         with map_tab1:
             map_col1, map_col2, map_col3 = st.columns([1, 5, 1])
             with map_col2:
                 interactive_map = create_interactive_map(trip_data)
                 if interactive_map:
-                    # --- MODIFIED: Removed fixed width for auto-scaling ---
                     folium_static(interactive_map, height=450)
                 else:
                     st.warning("Not enough data to render an interactive map.")
@@ -365,18 +363,18 @@ if page == "✈️ Plan Your Trip":
             with map_col2:
                 static_map_url = create_static_map_url_with_labels(trip_data, st.session_state.GOOGLE_MAPS_API_KEY)
                 if static_map_url:
-                    # --- MODIFIED: Used use_container_width for responsive image ---
                     st.image(static_map_url, use_container_width=True)
                 else:
                     st.warning("Could not generate static map. Please check API Key and coordinates.")
         
         if 'trip_id' in st.session_state:
             clean_link = generate_shareable_link(st.session_state.trip_id)
+            # --- MODIFIED: Added inline style to change the link's font color ---
             st.markdown(
                 f"""
                 <div style="max-width: 600px; margin: 40px auto; text-align: center;">
                     <h3>Share Your Portable Itinerary</h3>
-                    <div style="background-color: #eef2ff; padding: 1rem; border-radius: 0.5rem; font-family: monospace; overflow-wrap: break-word;">
+                    <div style="background-color: #eef2ff; color: #1E90FF; padding: 1rem; border-radius: 0.5rem; font-family: monospace; overflow-wrap: break-word; font-weight: bold;">
                         {clean_link}
                     </div>
                 </div>
@@ -391,7 +389,6 @@ if page == "✈️ Plan Your Trip":
             if st.button("🚀 Optimize Route with Live Traffic", use_container_width=True, type="primary"):
                 with st.spinner("Analyzing real-time traffic and finding the fastest route..."):
                     
-                    # Call the new comparison function
                     comparison_result = get_route_comparison(
                         st.session_state.trip_data,
                         st.session_state.GOOGLE_MAPS_API_KEY
@@ -417,15 +414,12 @@ if page == "✈️ Plan Your Trip":
                             st.rerun()
                         
                         else:
-                            # If no time is saved, inform the user their route is already optimal
                             st.info("✅ Your current itinerary is already the fastest route. No changes needed!")
                     else:
                         st.error(f"Optimization Failed: {comparison_result.get('error', 'Unknown error')}")
 
-        # Display the success message if it exists in the session state
         if st.session_state.get("optimization_success_message"):
             st.success(st.session_state.optimization_success_message)
-            # Clear the message so it doesn't show again on the next interaction
             del st.session_state.optimization_success_message
         
         if not st.session_state.get('feedback_given', False):
@@ -515,7 +509,8 @@ elif page == "📊 Trip Details":
         for i, stop in enumerate(display_data["stops"]):
             map_html = "<p>No map available</p>"
             if stop.get("coordinates"): map_html = create_stop_map_html(stop.get("coordinates", ""), stop["name"], st.session_state.GOOGLE_MAPS_API_KEY)
-            st.markdown(f"""<div class="stop-card"><div style="display: flex; align-items: center; margin-bottom: 15px;"><div class="stop-number">{i+1}</div><h3 style="margin: 0; color: #2d3748;">{stop["name"]}</h3></div><div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start;"><div><p><strong>Type:</strong> {stop.get('type', 'N/A').title()}</p><p><strong>Time Needed:</strong> {stop.get("visiting_time", 0.5)} hours</p><p><strong>Rating:</strong> ⭐ {stop.get('rating', 'N/A')}/5</p><p>{stop.get('description', 'No description available')}</p></div><div style="height: 200px; overflow: hidden; border-radius: 12px;">{map_html}</div></div></div>""", unsafe_allow_html=True)
+            # --- MODIFIED: Changed the h3 color for the stop name ---
+            st.markdown(f"""<div class="stop-card"><div style="display: flex; align-items: center; margin-bottom: 15px;"><div class="stop-number">{i+1}</div><h3 style="margin: 0; color: #5E35B1;">{stop["name"]}</h3></div><div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start;"><div><p><strong>Type:</strong> {stop.get('type', 'N/A').title()}</p><p><strong>Time Needed:</strong> {stop.get("visiting_time", 0.5)} hours</p><p><strong>Rating:</strong> ⭐ {stop.get('rating', 'N/A')}/5</p><p>{stop.get('description', 'No description available')}</p></div><div style="height: 200px; overflow: hidden; border-radius: 12px;">{map_html}</div></div></div>""", unsafe_allow_html=True)
     else: 
         st.info("Generate a travel plan first to see the trip details here.")
 
@@ -584,25 +579,19 @@ elif page == "📈 Admin Dashboard":
         # --- Section 2: Exploratory Data Analysis (EDA) ---
         st.markdown("---")
         st.subheader("📊 Exploratory Data Analysis")
-        # ▼▼▼ THIS IS THE FIX ▼▼▼
-        # Create a robust function to safely parse the 'trip_data' column
+        
         def safe_load_json(data):
             if isinstance(data, dict):
-                # If it's already a dictionary (from PostgreSQL JSONB), do nothing.
                 return data
             elif isinstance(data, str):
-                # If it's a string (from old SQLite data), load it.
                 try:
                     return json.loads(data)
                 except json.JSONDecodeError:
-                    return {} # Return an empty dict if the string is not valid JSON
+                    return {}
             else:
-                # For any other unexpected data type, return an empty dict.
                 return {}
 
-        # Apply this safe function to the column.
         trips_df['trip_data'] = trips_df['trip_data'].apply(safe_load_json)
-        # ▲▲▲ END OF FIX ▲▲▲
 
         # Chart 1: Most Popular Travel Routes
         with st.container(border=True):
