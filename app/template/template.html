@@ -8,45 +8,71 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* 1. CSS Variables for Theming (Light & Dark Mode) */
+        :root {
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #495057;
+            --heading-color: #2c3e50;
+            --subtle-text-color: #868e96;
+            --border-color: #dee2e6;
+            --primary-color: #009688;
+            --primary-color-hover: #00796b;
+            --shadow-color: rgba(50, 50, 93, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --card-bg: #1e1e1e;
+                --text-color: #e0e0e0;
+                --heading-color: #ffffff;
+                --subtle-text-color: #adb5bd;
+                --border-color: #444;
+                --primary-color: #00bfa5;
+                --primary-color-hover: #009688;
+                --shadow-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        /* 2. General Body and Layout Styles */
         body {
             font-family: 'Lato', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #eef1f5; /* Fallback */
-            background-image: linear-gradient(to bottom, #f5f7fa, #eef1f5); /* Decorative Gradient */
-            color: #495057;
+            padding: 15px; /* Padding for mobile */
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
         .page-container {
             max-width: 1200px;
-            margin: 50px auto;
-            background-color: #ffffff;
+            margin: 20px auto;
+            background-color: var(--card-bg);
             border-radius: 4px;
-            box-shadow: 0 15px 45px rgba(50, 50, 93, 0.1), 0 5px 25px rgba(0, 0, 0, 0.07); /* Softer Shadow */
+            box-shadow: 0 15px 45px var(--shadow-color), 0 5px 25px rgba(0, 0, 0, 0.07);
         }
+
+        /* 3. Header and Section Styles */
         .header {
-            padding: 40px 50px;
+            padding: 30px 40px;
             text-align: center;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--border-color);
         }
         .header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5em;
+            font-size: 2.8em;
             margin: 0;
-            color: #2c3e50;
+            color: var(--heading-color);
         }
         .header h2 {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 400;
             margin: 10px 0 0;
-            color: #868e96;
+            color: var(--subtle-text-color);
         }
-        /* Styles for the Download Button */
-        .header-actions {
-            margin-top: 25px;
-        }
+        .header-actions { margin-top: 25px; }
         .download-btn {
             font-family: 'Lato', sans-serif;
-            background-color: #009688;
+            background-color: var(--primary-color);
             color: white;
             padding: 12px 24px;
             border: none;
@@ -54,63 +80,54 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: bold;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 150, 136, 0.2);
+            transition: background-color 0.3s ease;
         }
-        .download-btn:hover {
-            background-color: #00796b;
-            box-shadow: 0 6px 15px rgba(0, 150, 136, 0.3);
-        }
+        .download-btn:hover { background-color: var(--primary-color-hover); }
+
         .full-width-section {
-            padding: 40px 50px;
-            border-bottom: 1px solid #dee2e6;
+            padding: 30px 40px;
+            border-bottom: 1px solid var(--border-color);
         }
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2em; /* Slightly larger */
-            color: #343a40;
+            font-size: 2em;
+            color: var(--heading-color);
             margin-top: 0;
             margin-bottom: 30px;
             text-align: center;
             position: relative;
         }
         .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background-color: #009688;
-            margin: 15px auto 0;
-            border-radius: 2px;
+            content: ''; display: block; width: 80px; height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0; border-radius: 2px;
         }
+        
+        /* 4. Content Styles (Table, Map, Timeline) */
         .overview-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
-            overflow: hidden; /* Ensures radius is applied to corners */
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+            background-color: var(--bg-color);
+            border-radius: 8px; border: 1px solid var(--border-color);
+            overflow: hidden;
         }
         .overview-table th {
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #555;
-            padding: 15px;
-            border-bottom: 2px solid #dee2e6;
+            font-size: 0.9em; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--subtle-text-color);
+            padding: 15px; border-bottom: 2px solid var(--border-color);
         }
         .overview-table td {
-            font-size: 1.6em;
-            font-weight: 700;
-            color: #009688;
-            padding: 20px 15px;
-            text-align: center;
+            font-size: 1.5em; font-weight: 700;
+            color: var(--primary-color);
+            padding: 20px 15px; text-align: center;
         }
-        .map-wrapper { max-width: 640px; margin: 0 auto; }
-        .map-wrapper img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: block; }
+        .map-wrapper { max-width: 100%; margin: 0 auto; }
+        .map-wrapper img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px var(--shadow-color); display: block; }
         .timeline { position: relative; max-width: 800px; margin: 0 auto; }
-        .timeline::before { content: ''; position: absolute; left: 18px; top: 15px; bottom: 15px; width: 3px; background-color: #e9ecef; border-radius: 3px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 18px; top: 15px;
+            bottom: 15px; width: 3px; background-color: var(--border-color);
+            border-radius: 3px;
+        }
         .stop-card {
             position: relative; padding-left: 60px; margin-bottom: 30px;
             padding-bottom: 20px; page-break-inside: avoid;
@@ -118,37 +135,41 @@
         .stop-number {
             position: absolute; left: 0; top: 0; width: 36px; height: 36px;
             border-radius: 50%;
-            background-image: linear-gradient(135deg, #00bfa5, #009688); /* Decorative Gradient */
+            background-image: linear-gradient(135deg, #00bfa5, var(--primary-color));
             color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 1.3em; font-weight: 700; border: 3px solid #ffffff;
-            box-shadow: 0 0 0 3px #009688;
+            font-size: 1.3em; font-weight: 700; border: 3px solid var(--card-bg);
+            box-shadow: 0 0 0 3px var(--primary-color);
         }
-        .stop-details h3 { font-family: 'Playfair Display', serif; font-size: 1.8em; margin: 5px 0 10px; color: #343a40; }
-        .stop-meta { color: #868e96; margin-bottom: 15px; }
+        .stop-details h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.8em;
+            margin: 5px 0 10px; color: var(--heading-color);
+        }
+        .stop-meta { color: var(--subtle-text-color); margin-bottom: 15px; }
         .stop-meta span { margin-right: 20px; }
         .stop-description { font-size: 1.1em; line-height: 1.7; }
-        .tips-section {
-            position: relative;
-            max-width: 800px; margin: 0 auto;
-        }
+        .tips-section { position: relative; max-width: 800px; margin: 0 auto; }
         .tips-section p {
-            font-size: 1.2em; /* Larger font */
-            line-height: 1.8;
-            font-style: italic; /* Italicized for quote feel */
-            background-color: #f1f9f8; padding: 25px 30px 25px 50px;
-            border-left: 4px solid #009688;
-            border-radius: 4px;
+            font-size: 1.2em; line-height: 1.8; font-style: italic;
+            background-color: var(--bg-color); padding: 25px 30px 25px 50px;
+            border-left: 4px solid var(--primary-color); border-radius: 4px;
         }
         .tips-section p::before {
-            content: '“';
-            font-family: 'Playfair Display', serif;
-            font-size: 4em;
-            color: #b2dfdb;
-            position: absolute;
-            left: 15px;
-            top: 5px;
+            content: '“'; font-family: 'Playfair Display', serif;
+            font-size: 4em; color: var(--border-color); position: absolute;
+            left: 15px; top: 5px;
         }
-        footer { text-align: center; padding: 25px; font-size: 0.9em; color: #adb5bd; }
+        footer { text-align: center; padding: 25px; font-size: 0.9em; color: var(--subtle-text-color); }
+
+        /* 5. Responsive Media Queries for Mobile Devices */
+        @media (max-width: 768px) {
+            body { padding: 0; }
+            .page-container { margin: 0; border-radius: 0; box-shadow: none; }
+            .header, .full-width-section { padding: 20px; }
+            .header h1 { font-size: 2em; }
+            .header h2 { font-size: 1.1em; }
+            .overview-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .stop-card { padding-left: 50px; }
+        }
     </style>
 </head>
 <body>
@@ -156,7 +177,6 @@
         <div class="header">
             <h1>Travel Itinerary</h1>
             <h2>{{ trip.start }} to {{ trip.end }}</h2>
-            <!-- Download Button Added Here -->
             <div class="header-actions">
                 <button class="download-btn" onclick="downloadItinerary()">
                     📥 Download Itinerary
@@ -229,25 +249,20 @@
         <footer><p>Generated by AI Travel Planner Pro</p></footer>
     </div>
 
-    <!-- JavaScript for Download Button -->
     <script>
         function downloadItinerary() {
             const buttonContainer = document.querySelector('.header-actions');
             
-            // Hide the button container before capturing the HTML
             if (buttonContainer) {
                 buttonContainer.style.display = 'none';
             }
 
-            // Capture the HTML of the entire page
             const htmlToSave = document.documentElement.outerHTML;
 
-            // IMPORTANT: Show the button container again for the user on the current page
             if (buttonContainer) {
                 buttonContainer.style.display = 'block';
             }
             
-            // Create a filename from the trip details safely
             const startRaw = {{ trip.start | tojson }};
             const endRaw = {{ trip.end | tojson }};
             const start = startRaw.replace(/ /g, '_');
