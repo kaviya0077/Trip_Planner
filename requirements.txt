@@ -1,0 +1,16 @@
+streamlit
+google-generativeai
+python-dotenv
+joblib
+pandas
+Jinja2
+plotly
+Flask
+streamlit-folium
+streamlit-audiorec
+lightgbm
+scikit-learn
+SpeechRecognition
+optuna
+gunicorn
+psycopg2-binary

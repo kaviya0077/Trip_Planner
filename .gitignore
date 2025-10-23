@@ -1,0 +1,54 @@
+# ===================================================================
+# AI TRAVEL PLANNER GITIGNORE
+# ===================================================================
+
+# --- Secrets ---
+# This is the most important line. It prevents your API keys and database
+# credentials from ever being uploaded to GitHub.
+/.env
+
+
+# --- Python Virtual Environment ---
+# Never commit your virtual environment folder.
+# Others will create their own by running 'pip install -r requirements.txt'.
+/trip_plan/
+
+
+# --- Generated Data & Trained Models ---
+# These files are created by your scripts. They can be large and should
+# not be stored in the repository. The README should instruct others
+# on how to generate them by running the scripts.
+/data/
+/models/
+
+
+# --- Local Database Files ---
+# Ignore any local SQLite database files used for testing or development.
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+
+# --- Python Caches & Artifacts ---
+# Standard Python files to ignore.
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+# --- IDE / Editor Configuration ---
+# Ignore settings specific to your local VS Code setup.
+.vscode/
+
+
+# --- Operating System Specific Files ---
+# Ignore files automatically created by macOS, Windows, or Linux.
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+# --- Jupyter Notebook Checkpoints (if you ever use them) ---
+.ipynb_checkpoints
