@@ -83,6 +83,7 @@ FEATURES_LIST = [
 # Custom CSS for Responsiveness and Theme Adaptability
 st.markdown("""
 <style>
+    iframe { width: 100% !important; }
     /* Main styling - REMOVED fixed background to allow theme switching */
     .main-header { font-size: 3.5rem; font-weight: 800; background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 1rem; padding: 1rem; }
     .sub-header { font-size: 1.8rem; font-weight: 600; margin-bottom: 2rem; text-align: center; color: var(--text-color); /* MODIFIED: Use theme's text color */ }
