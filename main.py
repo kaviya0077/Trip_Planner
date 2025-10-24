@@ -519,7 +519,7 @@ elif page == "💡 Travel Tips":
     st.subheader("💡 Travel Tips & Recommendations")
     if 'plan_generated' in st.session_state and st.session_state.plan_generated:
         display_data = st.session_state.get('translated_trip_data', st.session_state.trip_data)
-        st.markdown(f"""<div class="tips-card"><p>{display_data.get("additional_recommendations", "")}</p></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div class="tips-card">{display_data.get("additional_recommendations", "")}</div>""", unsafe_allow_html=True)
     else: 
         st.info("Generate a travel plan first to see travel tips here.")
 
