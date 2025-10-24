@@ -21,7 +21,7 @@ def find_best_model(api_key):
         # Preferred models in order of preference
         preferred_models = [
             # 'models/gemini-2.5-flash', 
-            'models/gemini-2.5-pro-latest', 
+            'models/gemini-2.5-pro', 
             # 'models/gemini-pro'
         ]
         
